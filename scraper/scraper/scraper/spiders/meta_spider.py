@@ -3,10 +3,6 @@ import openpyxl
 class MetaSpider(scrapy.Spider):
     name = "meta_spider"
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.website_urls = self.extract_url_from_excel()
-
     def extract_url_from_excel(self):
         filename = "C://Users//athar//Downloads//color database.xlsx"
         workbook = openpyxl.load_workbook(filename)
@@ -20,10 +16,11 @@ class MetaSpider(scrapy.Spider):
         return website_urls
 
     def start_requests(self):
+        website_urls = self.extract_url_from_excel()
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
         }
-        for url in self.website_urls:
+        for url in website_urls:
             yield scrapy.Request(url=url, callback=self.parse, headers=headers)
 
     def parse(self, response):
