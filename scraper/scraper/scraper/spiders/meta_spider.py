@@ -1,5 +1,7 @@
 import scrapy
 import openpyxl
+import ollama
+import json
 class MetaSpider(scrapy.Spider):
     name = "meta_spider"
 
@@ -30,5 +32,7 @@ class MetaSpider(scrapy.Spider):
             'meta_description': response.xpath('//meta[@name="description"]/@content').get(),
             'meta_keywords': response.xpath('//meta[@name="keywords"]/@content').get(),
         }
-        yield data
+        return data
+    
+    
 
