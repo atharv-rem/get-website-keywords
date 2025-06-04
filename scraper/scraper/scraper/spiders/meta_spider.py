@@ -31,8 +31,9 @@ class MetaSpider(scrapy.Spider):
             'url': response.url,
             'meta_description': response.xpath('//meta[@name="description"]/@content').get(),
             'meta_keywords': response.xpath('//meta[@name="keywords"]/@content').get(),
+            'og_image': response.xpath('//meta[@property="og:image"]/@content').get(),
         }
-        return data
+        yield data
     
     
 
